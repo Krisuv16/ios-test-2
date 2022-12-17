@@ -1,10 +1,11 @@
-//
-//  ListViewController.swift
-//  Ios-Test2
-//
-//  Created by Krisuv Bohara on 2022-12-15.
-//
 
+/*
+ File Name: AppDelegate
+ Author: Krisuv Bohara(301274636)
+ Date: 2022-12-13.
+ Description: ListViewController
+ Version: 1.0
+ */
 import Foundation
 import UIKit
 

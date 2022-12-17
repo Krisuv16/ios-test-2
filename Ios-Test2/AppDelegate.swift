@@ -1,9 +1,11 @@
-//
-//  AppDelegate.swift
-//  Ios-Test2
-//
-//  Created by Krisuv Bohara on 2022-12-13.
-//
+/*
+ File Name: AppDelegate
+ Author: Krisuv Bohara(301274636)
+ Date: 2022-12-13.
+ Description: Handles BMI App Initialization
+ Version: 1.0
+ */
+
 
 import UIKit
 import CoreData
