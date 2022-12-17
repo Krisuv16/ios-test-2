@@ -34,14 +34,42 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLabelPotrait: UILabel!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var dataList = [BmiEntity]()
+    var singleData : BmiEntity!
+
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         heightTextField.placeholder = "Enter Height in Inches"
         weightTextField.placeholder = "Enter Weight in Pounds"
+        fetchNotes()
+    }
+    
+    @IBAction func loadData(_ sender: UIButton) {
+        loadCacheData()
+    }
+    
+    func loadCacheData(){
+        nameTextField.text = singleData.name ?? ""
+        ageTextField.text = singleData.age ?? ""
+        genderTextField.text = singleData.gender ?? ""
+        heightTextField.text = singleData.height ?? ""
+        weightTextField.text = singleData.weight ?? ""
+        switchPotrait.isOn = singleData.unit == "Imperial" ? true : false
+    }
+    
+    func fetchNotes(){
+        //Fetching data from CoreData and isplaying in the Table View
+        do{
+            self.dataList =  try context.fetch(BmiEntity.fetchRequest())
+            self.dataList.reverse()
+            singleData = dataList[0]
+        }catch{
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +106,7 @@ class ViewController: UIViewController {
         bmiModel.date = formatter3.string(from: date)
         bmiModel.time = String(hour) + " : " +  String(minutes)
         bmiModel.unit = switchPotrait.isOn ? "Imperial" : "Metric"
+        
         self.saveData()
     }
     
@@ -101,6 +130,7 @@ class ViewController: UIViewController {
                     Float(weightTextField.text!)!  * 703 / (Float(heightTextField.text!)! * Float(heightTextField.text!)!)
                 )
                 bmi.round()
+                
                 presentBmi(bmi: bmi)
                 modelValue(bmi, formatter3, date, hour, minutes)
             }else{
@@ -163,8 +193,6 @@ class ViewController: UIViewController {
             resultLabel.text = "Your BMI is " + String(format: "%.1f", bmi) + " Your Obese Class Level is 3!"
         }
     }
-    
-
 }
 
 extension ViewController {
